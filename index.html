@@ -1,0 +1,62 @@
+﻿<html ng-app="hermoApp">
+	<head>
+		<meta charset="utf-8">
+		<title>Hermo test AngularJS</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<link rel="stylesheet" href="css/reset.css" />
+		
+		  
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/jquery.bxslider.css" />
+		<!--<link rel="stylesheet" href="http://bxslider.com/lib/jquery.bxslider.css" type="text/css">-->
+		
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script src="js/angular.min.js"></script>
+		<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
+		<script src="js/angular-resource.min.js"></script>
+		<script src="js/jquery.bxslider.js"></script>
+		<script src="js/app.js"></script>
+		
+	</head>
+	<body>
+		<div id="wrapper">
+			<div class="main">
+				<div  ng-controller="bannerCtrl">
+						<div id="sliderwrapper">
+								<div slideit="images"></div>
+						</div>  
+				</div>
+				<div  ng-controller="productsCtrl">
+					<div style="clear:both;overflow: hidden;width: 100%;">
+					<select name="sortSelected" id="sortSelected" ng-model="data.sortSelected" ng-change="changeSort(data.sortSelected)" style="float:right">
+					  <option value="selling_price">by selling price ASC</option>
+					  <option value="-selling_price">by selling price DESC</option>
+					  <option value="discount_rate">by discount rate ASC</option>
+					  <option value="-discount_rate">by discount rate DESC</option>
+					  <option value="name">by product name ASC</option>
+					  <option value="-name">by product name DESC</option>
+					</select>
+					</div>
+					<ul class="grid grid4">
+						<li class="item gridItem" ng-repeat="p in products | orderBy:orderBy">
+							<span class="discount" ng-if="p.discount_rate">{{p.discount_rate}}%</span>
+							<div class="product-image"><img ng-src="{{p.images}}" /></div>
+							<div class="product-info">
+								<div class="product-brand">{{p.brand.name}}</div>
+								<div class="product-name md">{{p.name|truncate:30 }}</div>
+								<div class="product-name sm">{{p.name}}</div>
+							</div>
+							<div class="list-price">
+								<span class="sale-price"><span class="sym">{{p.symbol}} </span><span>{{p.selling_price}}</span></span>
+								<span class="retail-price"><span class="sym">{{p.symbol}} </span><span>{{p.retail_price}}</span></span>
+							</div>
+							<div class="add-to-cart">
+								<button class="button" class="add-to-cart">BUY NOW</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>		
+	</body>
+</html>
